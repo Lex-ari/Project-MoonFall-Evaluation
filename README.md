@@ -1,41 +1,14 @@
-# Incoming Software Engineer Evaluation
+# Alex's Incoming Software Engineer Evaluation for Project MoonFall of Bronco Space
 
-In this repo are a series of coding questions and three quick programming exercises to evaluate where to best place you. Pull this repo and change the upstream branch from the MoonFall one to a personal public repository. A guide on how to do that can be found [here](https://devconnected.com/how-to-change-git-remote-origin/). Please fill out the info section on this page, the complete the quick answer questions below. 
-
-There are also 3 programming challenges written in python 3. If you do not know python you can answer in detailed pseudocode or c++. Detailed descriptions for the tasks are in their folders README files. 
-
- - [C1: Game of Life](C1/README.md)
- - [C2: Matrix Operations](C2/README.md)
- - [C3: Calculator](C3/README.md)
-
-When you are finished, push the code to your own repo and send the link to maxwildersmith@gmail.com.
-
----
 ## Info
 
-Name: 
+Name: Alex Mariano
 
-Email:
+Email: amarianocello@gmail.com
 
-Project you are applying for:
-
+Project you are applying for: Project MoonFall (any subteam)
 
 ---
-## Quick Answer Questions
-For the following questions answer as best you can, if you do not know, either make your best guess or skip the question. These questions are designed to cover all the potential roles for a project so it is not expected to know the answer to all of them. For the short answer ones answer is one or two sentences.
-
-Sample:
-
-Which of these is the number 5?
- - 1
- - 0
-> - 5
- - 4
-
-What is one difference between a float and an int?
-
-> An int is a whole integer number while a float can be a decimal value.
-
 ### Questions:
 ---
 
