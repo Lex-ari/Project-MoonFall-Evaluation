@@ -18,10 +18,8 @@ class Game:
         board = np.copy(self._board)
         
         ''' Insert your code for updating the board based on the rules below '''
+        neighborBoardCount = np.size(board.size)
 
-
-
-        
         self._board = board
 
 
