@@ -1,3 +1,4 @@
+from xml.etree.ElementTree import tostring
 import numpy as np
 import time
 
@@ -18,8 +19,31 @@ class Game:
         board = np.copy(self._board)
         
         ''' Insert your code for updating the board based on the rules below '''
-        neighborBoardCount = np.size(board.size)
-
+        # refer to this index for cell orientation:
+        # TL, T, TR
+        # ML, ▇, MR
+        # BL, B, BR
+        neighbor_board_count = np.zeros(board.shape)
+        num_rows = board.shape[0]
+        num_cols = board.shape[1]
+        for r in range(num_rows):
+            for c in range(num_cols):
+                if board[r][c]: # a cell exists in this plot
+                    hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
+                    hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
+                    if c > 0:   # if not hugging left border, allow L additions
+                        neighbor_board_count[r][c] += board[r][c - 1]   #ML
+                        if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c - 1]   #TL
+                        if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c - 1]    #BL
+                    if c < num_cols - 1: # if not hugging right border, allow R additions
+                        neighbor_board_count[r][c] += board[r][c + 1]   #MR
+                        if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c + 1]   #TR
+                        if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c + 1]    #BR
+                    if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c]   #T
+                    if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c]   #B
+        
+        for row in neighbor_board_count:
+            print(row)
         self._board = board
 
 
