@@ -4,7 +4,7 @@ import time
 
 
 class Game:
-    def __init__(self, size=(8,8), seed=None, max_gen=10):
+    def __init__(self, size=(8,8), seed=None, max_gen=100):
         # We use a predetermined seed to evaluate correct implementation
         if seed:
             np.random.seed(seed)
@@ -28,22 +28,29 @@ class Game:
         num_cols = board.shape[1]
         for r in range(num_rows):
             for c in range(num_cols):
-                if board[r][c]: # a cell exists in this plot
-                    hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
-                    hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
-                    if c > 0:   # if not hugging left border, allow L additions
-                        neighbor_board_count[r][c] += board[r][c - 1]   #ML
-                        if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c - 1]   #TL
-                        if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c - 1]    #BL
-                    if c < num_cols - 1: # if not hugging right border, allow R additions
-                        neighbor_board_count[r][c] += board[r][c + 1]   #MR
-                        if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c + 1]   #TR
-                        if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c + 1]    #BR
-                    if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c]   #T
-                    if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c]   #B
+                hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
+                hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
+                if c > 0:   # if not hugging left border, allow L additions
+                    neighbor_board_count[r][c] += board[r][c - 1]   #ML
+                    if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c - 1]   #TL
+                    if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c - 1]    #BL
+                if c < num_cols - 1: # if not hugging right border, allow R additions
+                    neighbor_board_count[r][c] += board[r][c + 1]   #MR
+                    if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c + 1]   #TR
+                    if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c + 1]    #BR
+                if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c]   #T
+                if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c]   #B
         
-        for row in neighbor_board_count:
-            print(row)
+        for r in range(num_rows):
+            for c in range(num_cols):
+                # importing Game of Life rules here:
+                # Cell > 3 neighbors = dies
+                # Cell 2-3 neighbors = lives 
+                # Cell < 2 neighbors = dies
+                # Dead cell with >3 neighbors = lives
+                if board[r][c]:
+                    if neighbor_board_count[r][c] > 3 or neighbor_board_count[r][c] < 2: board[r][c] -= 1   #if alive cell, check for over/under population to determine death
+                elif neighbor_board_count[r][c] == 3: board[r][c] += 1  #else (dead cell), check for neighbor population for life
         self._board = board
 
 
@@ -76,5 +83,5 @@ class Game:
 if __name__ == "__main__":
     # If this file is run directly from the command line, run the game
     g = Game()
-    g.time_run()
+    #g.time_run()
     g.play()  # Uncomment this to see the generational progression
