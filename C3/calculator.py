@@ -8,7 +8,6 @@ class Calculator:
         # Acceptable Inputs: "2 + 2", "2+2", "12 34 + 5 678" (read as 1234 + 5678), "2+++++++++++2" (read as 2 + 2), "2          ++++++++++ 3"
         # Unacceptable Inputs: "1234", "1234+", "+1234", "fghjekhgjrd"
         allowed_inputs = "0123456789+ "
-        index = 0
         integer_one_string = ""
         integer_two_string = ""
         flag_integer_one_complete = False
@@ -22,12 +21,11 @@ class Calculator:
                 if len(integer_two_string) > 0:    # Handles additional + when 2nd integer is being "read"
                     return "ERROR: Unexpected Input: " + char + ". Calculator can only add TWO integers!"
                 continue    # Handles multiple +
-            if char != ' ': # Handles unnecessary spaces
+            if char != ' ': # Handles unnecessary spaces ("111 222 + 333 444")
                 if not flag_integer_one_complete: # add to 1st integer until first '+', then add to 2nd integer. 
                     integer_one_string += char
                 else:   
                     integer_two_string += char
-            index += 1
         if not flag_integer_one_complete:   # Handles No addition operator (Ex. "43243")
             return "ERROR: Addition operator not given!"
         if len(integer_two_string) == 0:    # Handles no 2nd integer, (Ex. "2432+   ")
