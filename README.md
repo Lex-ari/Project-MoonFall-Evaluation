@@ -10,7 +10,6 @@ Project you are applying for: Project MoonFall (any subteam)
 
 ---
 ### Questions:
----
 
 **General**
 
