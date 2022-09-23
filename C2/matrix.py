@@ -12,8 +12,17 @@ class MatrixOps:
     def largest_index(self, matrix):
         ''' Make this function return a tuple of the (row, col) 
             index of the largest value in the matrix '''
-
-        return (0,0)
+        num_rows = matrix.shape[0]
+        num_cols = matrix.shape[1]
+        max_int = 0
+        max_index = [0, 0]
+        for r in range(num_rows):
+            for c in range(num_cols):
+                if matrix[r][c] > max_int:
+                    max_int = matrix[r][c]
+                    max_index[0] = r
+                    max_index[1] = c
+        return tuple(max_index)
 
     def convolve(self, kernel, matrix):
         ''' Make this function return the result of a 2D convolution '''
