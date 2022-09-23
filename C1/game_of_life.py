@@ -48,7 +48,7 @@ class Game:
                 # Cell > 3 neighbors = dies
                 # Cell 2-3 neighbors = lives 
                 # Cell < 2 neighbors = dies
-                # Dead cell with >3 neighbors = lives
+                # Dead cell with = 3 neighbors = lives
                 if board[r][c]:
                     if neighbor_board_count[r][c] > 3 or neighbor_board_count[r][c] < 2: board[r][c] -= 1   #if alive cell, check for over/under population to determine death
                 elif neighbor_board_count[r][c] == 3: board[r][c] += 1  #else (dead cell), check for neighbor population for life
