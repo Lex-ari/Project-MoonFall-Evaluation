@@ -59,4 +59,4 @@ N/A
 ---
 **AI**
 
-I do not know much about AI, but I would love to learn!
+I would love to learn AI programming!
