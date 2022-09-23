@@ -7,7 +7,6 @@ class Calculator:
         # Accept: "2+2", "2 * 2" <-- text error to user, "pineapple" <-- text error to user
         # Acceptable Inputs: "2 + 2", "2+2", "12 34 + 5 678" (read as 1234 + 5678), "2+++++++++++2" (read as 2 + 2), "2          ++++++++++ 3"
         # Unacceptable Inputs: "1234", "1234+", "+1234", "fghjekhgjrd"
-
         allowed_inputs = "0123456789+ "
         index = 0
         integer_one_string = ""
@@ -23,10 +22,11 @@ class Calculator:
                 if len(integer_two_string) > 0:    # Handles additional + when 2nd integer is being "read"
                     return "ERROR: Unexpected Input: " + char + ". Calculator can only add TWO integers!"
                 continue    # Handles multiple +
-            if not flag_integer_one_complete: # add to 1st integer until first '+', then add to 2nd integer. 
-                integer_one_string += char
-            else:   
-                integer_two_string += char
+            if char != ' ': # Handles unnecessary spaces
+                if not flag_integer_one_complete: # add to 1st integer until first '+', then add to 2nd integer. 
+                    integer_one_string += char
+                else:   
+                    integer_two_string += char
             index += 1
         if not flag_integer_one_complete:   # Handles No addition operator (Ex. "43243")
             return "ERROR: Addition operator not given!"
