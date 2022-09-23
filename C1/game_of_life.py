@@ -4,7 +4,7 @@ import time
 
 
 class Game:
-    def __init__(self, size=(8,8), seed=None, max_gen=100):
+    def __init__(self, size=(8,8), seed=None, max_gen=10):
         # We use a predetermined seed to evaluate correct implementation
         if seed:
             np.random.seed(seed)
@@ -28,18 +28,19 @@ class Game:
         num_cols = board.shape[1]
         for r in range(num_rows):
             for c in range(num_cols):
-                hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
-                hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
-                if c > 0:   # if not hugging left border, allow L additions
-                    neighbor_board_count[r][c] += board[r][c - 1]   #ML
-                    if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c - 1]   #TL
-                    if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c - 1]    #BL
-                if c < num_cols - 1: # if not hugging right border, allow R additions
-                    neighbor_board_count[r][c] += board[r][c + 1]   #MR
-                    if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c + 1]   #TR
-                    if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c + 1]    #BR
-                if not hugging_top: neighbor_board_count[r][c] += board[r - 1][c]   #T
-                if not hugging_bottom: neighbor_board_count[r][c] += board[r + 1][c]   #B
+                if board[r][c]:
+                    hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
+                    hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
+                    if c > 0:   # if not hugging left border, allow L additions
+                        neighbor_board_count[r][c - 1] += 1   #ML
+                        if not hugging_top: neighbor_board_count[r - 1][c - 1] += 1   #TL
+                        if not hugging_bottom: neighbor_board_count[r + 1][c - 1] += 1    #BL
+                    if c < num_cols - 1: # if not hugging right border, allow R additions
+                        neighbor_board_count[r][c + 1] += 1   #MR
+                        if not hugging_top: neighbor_board_count[r - 1][c + 1] += 1   #TR
+                        if not hugging_bottom: neighbor_board_count[r + 1][c + 1] += 1    #BR
+                    if not hugging_top: neighbor_board_count[r - 1][c]  += 1   #T
+                    if not hugging_bottom: neighbor_board_count[r + 1][c] += 1   #B
         
         for r in range(num_rows):
             for c in range(num_cols):
