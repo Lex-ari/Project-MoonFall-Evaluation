@@ -33,14 +33,14 @@ class MatrixOps:
         neighbor_board_count = np.zeros(matrix.shape)
         num_rows = matrix.shape[0]
         num_cols = matrix.shape[1]
-        for r in range(num_rows):
+        for r in range(num_rows):                
+            hugging_top = r == 0 # if index is hugging top border --> Disallow T additions
+            hugging_bottom = r == num_rows - 1 #if index is hugging bottom border --> Disallow B additions.
             for c in range(num_cols):   
                 # for this implementation, each index is multiplying and adding itself to its neighbors according to an opposites kernel 
                 # this means adding to a TR neighbor means multiplying the current index by the BL value of the kernel.
                 index_value = matrix[r][c]
                 neighbor_board_count[r][c] = index_value * kernel[1][1] # weight applied to self
-                hugging_top = r == 0 # if index is hugging top border --> Disallow T additions
-                hugging_bottom = r == num_rows - 1 #if index is hugging bottom border --> Disallow B additions.
                 if c > 0:   # if not hugging left border, allow L additions
                     neighbor_board_count[r][c - 1] += index_value * kernel[1][2]  #ML   (MR Kernel)
                     if not hugging_top: neighbor_board_count[r - 1][c - 1] += index_value * kernel[2][2]  #TL   (BR Kernel)

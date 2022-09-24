@@ -27,10 +27,10 @@ class Game:
         num_rows = board.shape[0]
         num_cols = board.shape[1]
         for r in range(num_rows):
+            hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
+            hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
             for c in range(num_cols):
                 if board[r][c]: # If cell exists in this plot, add 1 to its surrounding plots
-                    hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
-                    hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
                     if c > 0:   # if not hugging left border, allow L additions
                         neighbor_board_count[r][c - 1] += 1   #ML
                         if not hugging_top: neighbor_board_count[r - 1][c - 1] += 1   #TL
