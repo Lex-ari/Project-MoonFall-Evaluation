@@ -28,7 +28,7 @@ class Game:
         num_cols = board.shape[1]
         for r in range(num_rows):
             for c in range(num_cols):
-                if board[r][c]:
+                if board[r][c]: # If cell exists in this plot, add 1 to its surrounding plots
                     hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
                     hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
                     if c > 0:   # if not hugging left border, allow L additions
@@ -49,7 +49,7 @@ class Game:
                 # Cell 2-3 neighbors = lives 
                 # Cell < 2 neighbors = dies
                 # Dead cell with = 3 neighbors = lives
-                if board[r][c]:
+                if board[r][c]: #If living cell exists on plot r,c
                     if neighbor_board_count[r][c] > 3 or neighbor_board_count[r][c] < 2: board[r][c] -= 1   #if alive cell, check for over/under population to determine death
                 elif neighbor_board_count[r][c] == 3: board[r][c] += 1  #else (dead cell), check for neighbor population for life
         self._board = board
