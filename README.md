@@ -51,7 +51,7 @@ What does the permission code 777 represent (as used in `chmod 777`)?
 
 
 Which of these commands sets and environment variable in Linux? 
- - export $VAR=val 
+ - export VAR=val 
 
 What is one major role of systemd?
 - N/A
