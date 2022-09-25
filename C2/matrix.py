@@ -40,7 +40,7 @@ class MatrixOps:
                 # for this implementation, each index is multiplying and adding itself to its neighbors according to an opposites kernel 
                 # this means adding to a TR neighbor means multiplying the current index by the BL value of the kernel.
                 index_value = matrix[r][c]
-                neighbor_board_count[r][c] = index_value * kernel[1][1] # weight applied to self
+                neighbor_board_count[r][c] += index_value * kernel[1][1] # weight applied to self
                 if c > 0:   # if not hugging left border, allow L additions
                     neighbor_board_count[r][c - 1] += index_value * kernel[1][2]  #ML   (MR Kernel)
                     if not hugging_top: neighbor_board_count[r - 1][c - 1] += index_value * kernel[2][2]  #TL   (BR Kernel)
