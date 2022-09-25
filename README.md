@@ -31,7 +31,7 @@ Which level of cache would be accessible by only a single core on a multi-core c
 
 
 Explain one difference between any of these 2 protocols: I2C, SPI, UART:
-SPI is software while UART is hardware.
+- SPI is software while UART is hardware.
 
 What is a feature Java has that C++ does not?
  - Implicit garbage collection
