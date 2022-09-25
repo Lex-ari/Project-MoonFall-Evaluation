@@ -59,4 +59,4 @@ What is one major role of systemd?
 ---
 **AI**
 
-I would love to learn AI programming!
+I would like the opportunity to learn AI programming!
