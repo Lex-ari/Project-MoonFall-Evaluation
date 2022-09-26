@@ -46,19 +46,20 @@ class Game:
                 if not hugging_bottom: 
                     self.add_dictionary_plot(r + 1, c, neighbor_board_dictionary)   #B
         
-        for (row, cow), neighbors in neighbor_board_dictionary.items():
+        for (row, col) in neighbor_board_dictionary.keys():
             # importing Game of Life rules here:
             # Cell > 3 neighbors = dies
             # Cell 2-3 neighbors = lives 
             # Cell < 2 neighbors = dies
             # Dead cell with = 3 neighbors = lives
-            if board[row][cow]: #If living cell exists on plot r,c
+            neighbors = neighbor_board_count[row][col]
+            if board[row][col]: #If living cell exists on plot r,c
                 if neighbors > 3 or neighbors < 2: 
-                    board[row][cow] -= 1   #if alive cell, check for over/under population to determine death
-                    list_of_alive_cells.remove((row, cow))
+                    board[row][col] -= 1   #if alive cell, check for over/under population to determine death
+                    list_of_alive_cells.remove((row, col))
             elif neighbors == 3: 
-                board[row][cow] += 1  #else (dead cell), check for neighbor population for life
-                list_of_alive_cells.append((row, cow))
+                board[row][col] += 1  #else (dead cell), check for neighbor population for life
+                list_of_alive_cells.append((row, col))
         self._board = board
         self._list_of_alive_cells = list_of_alive_cells
 
