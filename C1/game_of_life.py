@@ -95,5 +95,5 @@ class Game:
 if __name__ == "__main__":
     # If this file is run directly from the command line, run the game
     g = Game()
-    #g.time_run()
+    g.time_run()
     g.play()  # Uncomment this to see the generational progression
