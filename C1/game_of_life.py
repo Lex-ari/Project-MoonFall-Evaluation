@@ -3,7 +3,7 @@ import time
 
 
 class Game:
-    def __init__(self, size=(8,8), seed=None, max_gen=100):
+    def __init__(self, size=(8,8), seed=None, max_gen=10):
         # We use a predetermined seed to evaluate correct implementation
         if seed:
             np.random.seed(seed)
@@ -25,14 +25,14 @@ class Game:
         # TL, T, TR
         # ML, ▇, MR
         # BL, B, BR
-        neighbor_board_count = np.zeros(board.shape)
-        neighbor_board_dictionary = {}  #stores plots in which a neighbor exists
+        neighbor_board_dictionary = {}  #stores plots in which a neighbor exists. Ex. if there is a cell around (0, 1), then the dictionary value (0, 1) = 1
         num_rows = board.shape[0]
         num_cols = board.shape[1]
         for (r, c) in list_of_alive_cells:
             hugging_top = r == 0 # if cell is hugging top border --> Disallow T additions
             hugging_bottom = r == num_rows - 1 #if cell is hugging bottom border --> Disallow B additions.
             if board[r][c]: # If cell exists in this plot, add 1 to its surrounding plots
+                neighbor_board_dictionary[(r,c)] = neighbor_board_dictionary.get((r,c),0)  # puts a marker on own cell to prevent no neighboring cells looking after this one.
                 if c > 0:   # if not hugging left border, allow L additions
                     self.add_dictionary_plot(r, c - 1, neighbor_board_dictionary) #L
                     if not hugging_top: self.add_dictionary_plot(r - 1, c - 1, neighbor_board_dictionary)   #TL
@@ -52,7 +52,7 @@ class Game:
             # Cell 2-3 neighbors = lives 
             # Cell < 2 neighbors = dies
             # Dead cell with = 3 neighbors = lives
-            neighbors = neighbor_board_count[row][col]
+            neighbors = neighbor_board_dictionary[(row, col)]
             if board[row][col]: #If living cell exists on plot r,c
                 if neighbors > 3 or neighbors < 2: 
                     board[row][col] -= 1   #if alive cell, check for over/under population to determine death
@@ -90,14 +90,10 @@ class Game:
         print(f'Generation: {self._gen}')
 
     def add_dictionary_plot(self, row, col, dict):
-        if (row, col) in dict:
-            dict[(row, col)] += 1
-        else:
-            dict.update({(row, col): 1})
-
+        dict[(row, col)] = dict.get((row, col), 0) + 1
 
 if __name__ == "__main__":
     # If this file is run directly from the command line, run the game
     g = Game()
     g.time_run()
-    #g.play()  # Uncomment this to see the generational progression
+    g.play()  # Uncomment this to see the generational progression
